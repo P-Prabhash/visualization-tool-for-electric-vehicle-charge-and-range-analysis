@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EV Charge & Range Analysis Dashboard</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #2e86de;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+    }
+    .chart {
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EV Charge & Range Analysis Dashboard</h1>
+  </header>
+  <div class="container">
+    <div class="chart" id="socTime"></div>
+    <div class="chart" id="distanceEnergy"></div>
+    <div class="chart" id="chargingTime"></div>
+  </div>
+
+  <script>
+    // Sample Data
+    const timestamps = ['2025-07-01', '2025-07-02', '2025-07-03', '2025-07-04'];
+    const soc = [80, 60, 90, 50];
+    const distance = [120, 100, 130, 90];
+    const energyUsed = [15, 14, 17, 13];
+    const chargeTime = [2, 2.5, 1.8, 3];
+
+    // Battery SoC vs Time
+    Plotly.newPlot('socTime', [{
+      x: timestamps,
+      y: soc,
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: 'Battery SoC (%)'
+    }], {
+      title: 'Battery SoC Over Time'
+    });
+
+    // Distance vs Energy Used
+    Plotly.newPlot('distanceEnergy', [{
+      x: distance,
+      y: energyUsed,
+      type: 'bar',
+      name: 'Energy Used (kWh)'
+    }], {
+      title: 'Distance vs Energy Used',
+      xaxis: { title: 'Distance (km)' },
+      yaxis: { title: 'Energy Used (kWh)' }
+    });
+
+    // Charging Time vs SoC
+    Plotly.newPlot('chargingTime', [{
+      x: chargeTime,
+      y: soc,
+      type: 'scatter',
+      mode: 'markers',
+      name: 'Charging Time (hrs) vs SoC'
+    }], {
+      title: 'Charging Time vs Battery SoC',
+      xaxis: { title: 'Charging Time (hrs)' },
+      yaxis: { title: 'Battery SoC (%)' }
+    });
+  </script>
+</body>
+</html>
